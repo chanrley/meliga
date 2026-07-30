@@ -15,3 +15,20 @@ jobs:
 
       - name: Placeholder check
         run: echo "Pipeline OK - adicionar steps de build/test/deploy aqui"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Format check (Prettier)
+        run: npx --yes prettier --check "**/*.{html,css,js,md}"
+
+      - name: HTML lint (HTMLHint)
+        run: npx --yes htmlhint "**/*.html"
